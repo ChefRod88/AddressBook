@@ -162,31 +162,92 @@ namespace AddressBook
     }
 
     // Main class with entry point
-    public class Program
+    public class Program // entry point of Program
     {
         static void Main(string[] args)
         {
-            // Create an instance of the AddressBook
-            AddressBook addressBook = new AddressBook();
+            // Create an instance of the AddressBook Class
+            var addressBook = new AddressBook();
+            while (true)
+            {
+                Console.WriteLine("\nAddress Book Menu:");
+                Console.WriteLine("1. Add Contact");
+                Console.WriteLine("2. Search Contact");
+                Console.WriteLine("3. Edit Contact");
+                Console.WriteLine("4. Delete Contact");
+                Console.WriteLine("5. Merge Contacts");
+                Console.WriteLine("6. Export Contacts");
+                Console.WriteLine("7. Import Contacts");
+                Console.WriteLine("8. Display Contacts");
+                Console.WriteLine("9. Exit");
+                
+                Console.Write("Choose an option: ");
+                var choice = Console.ReadLine();
 
-            // Example usage
-            addressBook.AddContact("John Doe", "john@example.com", new List<string> { "123-456-7890", "987-654-3210" });
-            addressBook.AddContact("Jane Smith", "jane@example.com", new List<string> { "555-123-4567" });
+                switch (choice)
+                {
+                   case "1":
+                       Console.Write("Enter Name: ");
+                       var name = Console.ReadLine();
+                       Console.Write("Enter Email: ");
+                       var email = Console.ReadLine();
+                       Console.Write("Enter Phone Numbers: (comma separated): ");
+                       var phoneNumbers = Console.ReadLine().Split(',').Select(p => p.Trim()).ToList();
+                       addressBook.AddContact(name, email, phoneNumbers);
+                       break;
+                   
+                   case "2":
+                       Console.Write("Enter Name or Email to search: ");
+                       var query = Console.ReadLine();
+                       addressBook.SearchContact(query);
+                       break;
+                   
+                   case "3":
+                       Console.Write("Enter Name of Contact to Edit: ");
+                       var editName = Console.ReadLine();
+                       addressBook.EditContact(editName);
+                       break;
+                   
+                   case "4":
+                       Console.Write("Enter Name of Contact to Delete: ");
+                       var deleteName = Console.ReadLine();
+                       addressBook.DeleteContact(deleteName);
+                       break;
+                   
+                   case "5":
+                       Console.Write("Enter Name of Contact to Merge: ");
+                       var mergeName = Console.ReadLine();
+                       addressBook.MergeContacts(mergeName);
+                       break;
+                   
+                   case "6":
+                       Console.Write("Enter File Name to Export Contacts: ");
+                       var exportFile = Console.ReadLine();
+                       addressBook.ExportContacts(exportFile);
+                       break;
+                   
+                   case "7":
+                       Console.Write("Enter File Name to Import Contacts: ");
+                       var importFile = Console.ReadLine();
+                       addressBook.ImportContacts(importFile);
+                       break;
+                   
+                   case "8":
+                       addressBook.DisplayContacts();
+                       break;
+                   
+                   case "9":
+                       Console.WriteLine("Exiting program.");
+                       return;
+                   
+                   default:
+                       Console.WriteLine("Invalid option. Please try again.");
+                       break;
+                }
+            }
+            
 
-            // Display all contacts
-            addressBook.DisplayContacts();
-
-            // Search for a contact
-            addressBook.SearchContact("John");
-
-            // Edit a contact
-            addressBook.EditContact("John Doe");
-
-            // Delete a contact
-            addressBook.DeleteContact("Jane Smith");
-
-            // Display all contacts after changes
-            addressBook.DisplayContacts();
+            
         }
     }
 }
